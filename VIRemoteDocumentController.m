@@ -24,18 +24,6 @@ NSString *supportedMimeTypes[] =
 
 @implementation VIRemoteDocumentController
 
-+ (VIRemoteDocumentController *)getInstance
-{
-    static dispatch_once_t pred = 0;
-    __strong static VIRemoteDocumentController *_sharedObject = nil;
-   
-    dispatch_once(&pred, ^{
-        _sharedObject = [[self alloc] init];
-    });
-    
-    return _sharedObject;
-}
-
 - (void)openWith:(NSURL*)url
    forController:(UIViewController*)cont
       completion:(void (^)(BOOL success, NSError *err))completion
@@ -53,7 +41,7 @@ NSString *supportedMimeTypes[] =
     
     dispatch_async(dispatch_get_main_queue(), ^{
         MBProgressHUD *hud = [MBProgressHUD HUDForView:cont.view];
-        if (hud == nil) {
+        if (!hud) {
             hud = [[MBProgressHUD alloc]initWithView:cont.view];
             [cont.view addSubview:hud];
         }
@@ -78,7 +66,7 @@ NSString *supportedMimeTypes[] =
         NSString *previewDocumentFileName = [[url.absoluteString componentsSeparatedByString:@"/"] lastObject];
         self.localFile = [[VIRemoteDocumentController applicationDocumentsDirectory] stringByAppendingPathComponent:previewDocumentFileName];
         
-        NSError *err = nil;
+        NSError *err;
         [fileRemote writeToFile:self.localFile options:NSDataWritingAtomic error:&err];
         
         if (err) {
@@ -162,8 +150,6 @@ NSString *supportedMimeTypes[] =
     }
 }
 
-//- (BOOL)do
-
 - (NSError*)cleanupTempFile:(UIDocumentInteractionController *)controller
 {    
     //This doesn't need to be called, because iOS will clean out the Temp directory when it feels like it.
@@ -182,8 +168,7 @@ NSString *supportedMimeTypes[] =
     }
 }
 
-#pragma mark Mime Type Stuff
-
+#pragma mark - Mime Type Stuff
 + (NSString *)applicationDocumentsDirectory
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -191,14 +176,14 @@ NSString *supportedMimeTypes[] =
     return basePath;
 }
 
-+ (NSString*)fileMIMEType:(NSString*) file {
++ (NSString*)fileMIMEType:(NSString*)filePath {
     CFStringRef UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)[file pathExtension], NULL);
     CFStringRef MIMEType = UTTypeCopyPreferredTagWithClass (UTI, kUTTagClassMIMEType);
     CFRelease(UTI);
     return (__bridge NSString *)(MIMEType);
 }
 
-+ (BOOL)shouldHandleFileRequest:(NSURLRequest*)urlRequest
++ (BOOL)canHandleFileRequest:(NSURLRequest*)urlRequest;
 {
     NSLog(@"Header fields %@", urlRequest.allHTTPHeaderFields);
     
