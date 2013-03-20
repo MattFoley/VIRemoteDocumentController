@@ -7,7 +7,7 @@
 #import <UIKit/UIKit.h>
 
 
-typedef void(^Completion)(BOOL success, id object);
+typedef void(^VIRemoteDocumentCompletionBlock)(BOOL success, id object);
 
 @interface VIRemoteDocumentController : NSObject <UIDocumentInteractionControllerDelegate> {
 
@@ -15,13 +15,13 @@ typedef void(^Completion)(BOOL success, id object);
 
 //Completion fires on successful presentation of UIDocumentInteractionController
 //Or on Error during presentation
-@property (nonatomic, strong) Completion completion;
+@property (copy) VIRemoteDocumentCompletionBlock completion;
 
 //All other interactions should be handled through the UIDocumentInteractionControllerDelegate
-@property (nonatomic, weak) id<UIDocumentInteractionControllerDelegate> delegate;
+@property (weak) id<UIDocumentInteractionControllerDelegate> delegate;
 
-@property (nonatomic, strong) UIDocumentInteractionController *controller;
-@property (nonatomic, assign) CGPoint displayPoint;
+@property UIDocumentInteractionController *controller;
+@property CGPoint displayPoint;
 
 //These will return nil on success.
 - (void)openWith:(NSURL*)url
@@ -36,6 +36,6 @@ typedef void(^Completion)(BOOL success, id object);
 - (NSError*)cleanupTempFile:(UIDocumentInteractionController *)controller;
 
 + (NSString *)applicationDocumentsDirectory;
-+ (BOOL)shouldHandleFileRequest:(NSURLRequest*)urlRequest;
-+ (VIRemoteDocumentController *)getInstance;
++ (BOOL)canHandleFileRequest:(NSURLRequest*)urlRequest;
+
 @end
