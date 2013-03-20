@@ -18,7 +18,7 @@ typedef void(^Completion)(BOOL success, id object);
 @property (nonatomic, strong) Completion completion;
 
 //All other interactions should be handled through the UIDocumentInteractionControllerDelegate
-@property (nonatomic, strong) id<UIDocumentInteractionControllerDelegate> delegate;
+@property (nonatomic, weak) id<UIDocumentInteractionControllerDelegate> delegate;
 
 @property (nonatomic, strong) UIDocumentInteractionController *controller;
 @property (nonatomic, assign) CGPoint displayPoint;
