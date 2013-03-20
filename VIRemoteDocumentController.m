@@ -73,6 +73,7 @@ NSString *supportedMimeTypes[] =
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[MBProgressHUD HUDForView:cont.view] hide:YES];
                 self.completion(NO, err);
+                self.completion = nil;
             });
         }else{
             [self displayDIForController:cont];
@@ -106,6 +107,7 @@ NSString *supportedMimeTypes[] =
         
         [[MBProgressHUD HUDForView:cont.view] hide:YES];
         self.completion(success, nil);
+        self.completion = nil;
     });
 }
 
