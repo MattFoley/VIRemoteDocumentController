@@ -12,13 +12,13 @@ How To Use
 
 - For iPhone only apps call it using:
 
-    - (void)openWith:(NSURL*)url
+     - (void)openWith:(NSURL*)url
        forController:(UIViewController*)cont
           completion:(void (^)(BOOL success, NSError *err))completion;
 
 - For iPad or Universal, you can use this method to pick an origin for the iPad popover:
 
-    - (void)openWith:(NSURL*)url
+     - (void)openWith:(NSURL*)url
        forController:(UIViewController*)cont
              atPoint:(CGPoint)point
           completion:(void (^)(BOOL success, NSError *err))completion;
