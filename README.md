@@ -10,18 +10,20 @@ How To Use
 - Copy MBProgressHUD and VIRemoteDocumentController classes into your project
 - Update supportedMimeTypes[] if you plan on using shouldHandleFileRequest: to determine whether or not you want to handle a file based on it's file type.
 
-- For iPhone only apps call it using:
+For iPhone only apps call it using:
 
-     - (void)openWith:(NSURL*)url
-       forController:(UIViewController*)cont
-          completion:(void (^)(BOOL success, NSError *err))completion;
+    -(void)openWith:(NSURL*)url
+      forController:(UIViewController*)cont
+         completion:(void (^)(BOOL success, NSError *err))completion;
+          
 
-- For iPad or Universal, you can use this method to pick an origin for the iPad popover:
+For iPad or Universal, you can use this method to pick an origin for the iPad popover:
 
-     - (void)openWith:(NSURL*)url
-       forController:(UIViewController*)cont
-             atPoint:(CGPoint)point
-          completion:(void (^)(BOOL success, NSError *err))completion;
+    -(void)openWith:(NSURL*)url
+      forController:(UIViewController*)cont
+            atPoint:(CGPoint)point
+         completion:(void (^)(BOOL success, NSError *err))completion;
+          
 
 
 Example:
@@ -34,8 +36,8 @@ Example:
                                         	}];
 
 
-Protips
---------
+##Protips
+
 
 - If the UIViewController used responds to UIDocumentInteractionControllerDelegate Protocol, VIRemoteDocumentController will call those methods on your UIViewController.
 
