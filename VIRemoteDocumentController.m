@@ -18,7 +18,7 @@ NSString *supportedMimeTypes[] =
 
 @interface VIRemoteDocumentController ()
 
-@property (nonatomic, strong) NSString *localFile;
+@property (strong) NSString *localFile;
 
 @end
 
