@@ -37,5 +37,6 @@ typedef void(^VIRemoteDocumentCompletionBlock)(BOOL success, id object);
 
 + (NSString *)applicationDocumentsDirectory;
 + (BOOL)canHandleFileRequest:(NSURLRequest*)urlRequest;
++ (NSString*)fileMIMEType:(NSString*)filePath;
 
 @end
