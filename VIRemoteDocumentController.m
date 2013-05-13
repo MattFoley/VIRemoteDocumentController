@@ -13,7 +13,8 @@ NSString *supportedMimeTypes[] =
 {
     @"image/png",
     @"image/jpeg",
-    @"image/gif"
+    @"image/gif",
+    @"audio/mpeg"
 };
 
 @interface VIRemoteDocumentController ()
