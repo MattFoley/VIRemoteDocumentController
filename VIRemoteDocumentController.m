@@ -91,20 +91,11 @@ NSString *supportedMimeTypes[] =
         self.controller.delegate = self;
         self.controller.UTI = [VIRemoteDocumentController fileMIMEType:fileURL.absoluteString];
 
-        BOOL success = [self.controller presentOpenInMenuFromRect:CGRectMake(self.displayPoint.x,
+        BOOL success = [self.controller presentOptionsMenuFromRect:CGRectMake(self.displayPoint.x,
                                                                              self.displayPoint.y,
                                                                              1, 1)
                                                            inView:cont.view
                                                          animated:YES];
-        
-        //Fallback to Options Menu if no apps available for OpenIn.
-        if (!success) {
-            success = [self.controller presentOptionsMenuFromRect:CGRectMake(self.displayPoint.x,
-                                                                             self.displayPoint.y,
-                                                                             1, 1)
-                                                           inView:cont.view
-                                                         animated:YES];
-        }
         
         [[MBProgressHUD HUDForView:cont.view] hide:YES];
         self.completion(success, nil);
